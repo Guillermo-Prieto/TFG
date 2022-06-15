@@ -1,0 +1,11 @@
+Necesito lo siguiente:
+    -Login con su LoginStack y su header distintos
+    - Home para usuario donde aparecera bienvenida en el page load y con una cabecera donde 
+      podremos ver los siguientes botones: Listado, añadir , about, re-entrenar y salir
+    - Vista de Listado donde veremos un registro de los antiguas donaciones
+    - Añadir nuevo registro de organo
+    - About información sobre la APP
+    - Re-entrenar que permitira re-entrenar el modelo
+    - Salir de la APP
+    - Tiene que ser Responsive 
+      
