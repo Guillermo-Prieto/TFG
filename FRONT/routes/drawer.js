@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -9,7 +9,8 @@ import {
 import Home from '../Screens/Home'
 import About from '../Screens/About'
 import Listado from '../Screens/Listado'
-import { Fontisto, FontAwesome } from '@expo/vector-icons'
+import Login from '../Screens/Login'
+import { Fontisto, FontAwesome, Ionicons} from '@expo/vector-icons'
 
 // import LinearGradient from 'react-native-linear-gradient'
 
@@ -54,7 +55,26 @@ function CustomDrawerContent (props) {
       </View>
       <DrawerItemList {...props} />
       <DrawerItem label="Help" onPress={() => alert('Link to help')} />
+
+
+      <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: '#ccc' }}>
+    <TouchableOpacity onPress= {() => { }} style = {{ paddingVertical: 15}}>
+      <View style={{}}>
+        <Ionicons name="exit-outline" size={22}/>
+        <Text style={{
+          fontSize: 15,
+          fontFamily: 'Roboto-Medium',
+          marginLeft: 5
+        }}>
+          Salir
+        </Text>
+      </View>
+    </TouchableOpacity>
+  </View>
     </DrawerContentScrollView>
+  
+
+
   )
 }
 
@@ -90,6 +110,11 @@ export function MyDrawer () {
       <Drawer.Screen name="About" component={About} options={{
         drawerIcon: () => (
           <FontAwesome name="info-circle" size={24} color="black" />
+        )
+      }}/>
+      <Drawer.Screen name="Salir" component={Login} options={{
+        drawerIcon: () => (
+          <Ionicons name="exit-outline" size={22} color="black"/>
         )
       }}/>
     </Drawer.Navigator>
