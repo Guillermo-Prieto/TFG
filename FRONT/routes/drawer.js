@@ -55,8 +55,6 @@ function CustomDrawerContent (props) {
       </View>
       <DrawerItemList {...props} />
       <DrawerItem label="Help" onPress={() => alert('Link to help')} />
-
-
       <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: '#ccc' }}>
     <TouchableOpacity onPress= {() => { }} style = {{ paddingVertical: 15}}>
       <View style={{}}>
@@ -72,9 +70,6 @@ function CustomDrawerContent (props) {
     </TouchableOpacity>
   </View>
     </DrawerContentScrollView>
-  
-
-
   )
 }
 
