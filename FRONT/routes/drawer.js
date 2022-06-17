@@ -10,7 +10,7 @@ import Home from '../Screens/Home'
 import About from '../Screens/About'
 import Listado from '../Screens/Listado'
 import Login from '../Screens/Login'
-import { Fontisto, FontAwesome, Ionicons} from '@expo/vector-icons'
+import { Fontisto, FontAwesome, Ionicons } from '@expo/vector-icons'
 
 // import LinearGradient from 'react-native-linear-gradient'
 
@@ -56,7 +56,7 @@ function CustomDrawerContent (props) {
       <DrawerItemList {...props} />
       <DrawerItem label="Help" onPress={() => alert('Link to help')} />
       <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: '#ccc' }}>
-    <TouchableOpacity onPress= {() => { }} style = {{ paddingVertical: 15}}>
+    <TouchableOpacity onPress= {() => { }} style = {{ paddingVertical: 15 }}>
       <View style={{}}>
         <Ionicons name="exit-outline" size={22}/>
         <Text style={{
