@@ -55,13 +55,18 @@ controller.getInjertos = (req, res) => {
     const bbt = req.body.bbt;
     const acvhc = req.body.acvhc; 
     const acvhbc = req.body.acvhbc;
-    const dosisna = req.body.dosisna;
+    if(req.body.dosisna == null) {
+      var dosisna = 0.0;
+    }
+    else{
+      dosisna = req.body.dosisna;
+    }
     const aminas = req.body.aminas;
     console.log(req.body);
-  
+    var fecha = new Date();
     db.query(
-      "INSERT INTO injertos (edad, sexo, imc, hta, dm, dlp, apm, apq, got, gpt, ggt, na,bbt, acvhc, acvhbc, dosisna, aminas, ecografia_1, ecografia_2, ecografia_3) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id",
-      [edad, sexo, imc, hta, dm, dlp, apm, apq, got, gpt, ggt, na,bbt, acvhc, acvhbc, dosisna, aminas, ecografia_1, ecografia_2, ecografia_3],
+      "INSERT INTO injertos (edad, sexo, imc, hta, dm, dlp, apm, apq, got, gpt, ggt, na,bbt, acvhc, acvhbc, dosisna, aminas, ecografia_1, ecografia_2, ecografia_3, fecha) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id",
+      [edad, sexo, imc, hta, dm, dlp, apm, apq, got, gpt, ggt, na,bbt, acvhc, acvhbc, dosisna, aminas, ecografia_1, ecografia_2, ecografia_3, fecha],
       (err, result) => {
         if (err) {
           console.log(err);
@@ -149,7 +154,12 @@ controller.editInjerto =  (req, res) => {
   const bbt = req.body.bbt;
   const acvhc = req.body.acvhc; 
   const acvhbc = req.body.acvhbc;
-  const dosisna = req.body.dosisna;
+  if(req.body.dosisna == null) {
+    var dosisna = 0.0;
+  }
+  else{
+    dosisna = req.body.dosisna;
+  }
   const aminas = req.body.aminas;
   console.log(req.body);
 
