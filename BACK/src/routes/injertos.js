@@ -8,10 +8,11 @@ router.get('/injertos/crear', (req, res) => {
     res.send("Aqui se puede crear un nuevo injerto");
     //res.render('crearInjerto') se mostrara la pagina para crear un injerto
 });
+router.post('/injertos/crear', injertosController.addInjerto);
 
 router.get("/injertos/:id", injertosController.getInjerto); 
 router.get("/injertos/delete/:id", injertosController.deleteInjerto); 
-//router.post('/injertos/crear', injertosController.addInjerto);
+
 
 
 

@@ -18,19 +18,36 @@ controller.getInjertos = (req, res) => {
     });
   }
 
-
-
 //crear un injerto
    controller.addInjerto =  (req, res) => {
     const edad = req.body.edad;
-    const sexo = req.body.sexo;  
+    if(req.body.sexo == 'masculino'){
+      var sexo = 1;
+    }
+    else{
+      var sexo = 0;
+    }
     const imc = req.body.imc;
     const hta = req.body.hta;
     const dm = req.body.dm;
     const dlp = req.body.dlp;
     const apm = req.body.apm; 
     const apq = req.body.apq; //el boton devolvera true o false
-    const ecografia = req.body.ecografia; 
+    if(req.body.ecografia == 'normal'){
+      var ecografia_1 = 1;
+      var ecografia_2 = 0;
+      var ecografia_3 = 0;
+    }
+    else if(req.body.ecografia == 'patologica'){
+      var ecografia_1 = 0;
+      var ecografia_2 = 1;
+      var ecografia_3 = 0;
+    }
+    else{
+      var ecografia_1 = 0;
+      var ecografia_2 = 0;
+      var ecografia_3 = 1;
+    }
     const got = req.body.got;
     const gpt = req.body.gpt;
     const ggt = req.body.ggt;
@@ -43,8 +60,8 @@ controller.getInjertos = (req, res) => {
     console.log(req.body);
   
     db.query(
-      "INSERT INTO injertos (edad, sexo, imc, hta, dm, dlp, apm, apq, ecografia, got, gpt, ggt, na,bbt, acvhc, acvhbc, dosisna, aminas) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id",
-      [edad, sexo, imc, hta, dm, dlp, apm, apq, ecografia, got, gpt, ggt, na,bbt, acvhc, acvhbc, dosisna, aminas],
+      "INSERT INTO injertos (edad, sexo, imc, hta, dm, dlp, apm, apq, got, gpt, ggt, na,bbt, acvhc, acvhbc, dosisna, aminas, ecografia_1, ecografia_2, ecografia_3) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id",
+      [edad, sexo, imc, hta, dm, dlp, apm, apq, got, gpt, ggt, na,bbt, acvhc, acvhbc, dosisna, aminas, ecografia_1, ecografia_2, ecografia_3],
       (err, result) => {
         if (err) {
           console.log(err);
@@ -94,7 +111,63 @@ controller.getInjertos = (req, res) => {
   };
 
 
+//editar un injerto
+controller.editInjerto =  (req, res) => {
+  const id = req.params.id;
+  const edad = req.body.edad;
+  if(req.body.sexo == 'masculino'){
+    var sexo = 1;
+  }
+  else{
+    var sexo = 0;
+  }
+  const imc = req.body.imc;
+  const hta = req.body.hta;
+  const dm = req.body.dm;
+  const dlp = req.body.dlp;
+  const apm = req.body.apm; 
+  const apq = req.body.apq; //el boton devolvera true o false
+  if(req.body.ecografia == 'normal'){
+    var ecografia_1 = 1;
+    var ecografia_2 = 0;
+    var ecografia_3 = 0;
+  }
+  else if(req.body.ecografia == 'patologica'){
+    var ecografia_1 = 0;
+    var ecografia_2 = 1;
+    var ecografia_3 = 0;
+  }
+  else{
+    var ecografia_1 = 0;
+    var ecografia_2 = 0;
+    var ecografia_3 = 1;
+  }
+  const got = req.body.got;
+  const gpt = req.body.gpt;
+  const ggt = req.body.ggt;
+  const na    = req.body.na;
+  const bbt = req.body.bbt;
+  const acvhc = req.body.acvhc; 
+  const acvhbc = req.body.acvhbc;
+  const dosisna = req.body.dosisna;
+  const aminas = req.body.aminas;
+  console.log(req.body);
 
+  db.query(
+    "UPDATE injertos SET edad=?, sexo=?, imc=?, hta=?, dm=?, dlp=?, apm=?, apq=?, got=?, gpt=?, ggt=?, na=?,bbt=?, acvhc=?, acvhbc=?, dosisna=?, aminas=?, ecografia_1=?, ecografia_2=?, ecografia_3=?) WHERE id=?",
+    [edad, sexo, imc, hta, dm, dlp, apm, apq, got, gpt, ggt, na,bbt, acvhc, acvhbc, dosisna, aminas, ecografia_1, ecografia_2, ecografia_3,id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+          console.log("Injerto modificado");
+          var ruta =  "/injertos/" + st(id);
+          res.redirect(ruta);
+      }
+    }
+  );   
+
+};
 
 
 

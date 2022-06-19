@@ -2,9 +2,10 @@
 
 module.exports ={
     database: {
-        host: '127.0.0.1',
-        user: 'root',
-        password: 'password',
-        database: 'tfgdatabase'
+        host: 'bgz5gypq9y1ix8elzlmf-mysql.services.clever-cloud.com',
+        user: 'uirv9yegvejded0f',
+        password: 'VJe0JHNMSx2PahNR72bY',
+        database: 'bgz5gypq9y1ix8elzlmf',
+        port: 3306
     }
 };
