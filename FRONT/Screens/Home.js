@@ -1,5 +1,5 @@
 // import { StatusBar } from 'expo-status-bar'
-import React from 'react'
+/* import React from 'react'
 import { StyleSheet, Text, View, Button } from 'react-native'
 // import { event } from 'react-native-reanimated'
 // import axios from 'axios'
@@ -10,12 +10,81 @@ export default function Home ({ navigation }) {
   const goAbout = () => {
     navigation.navigate('About')
   }
+<<<<<<< HEAD
+=======
+
+  //VIDEO DE LISTADO
+  constructor(); {
+    super()
+    this.guardar= this.guardar.bind(this)
+    this.state={
+      lista:[],
+      nombre:'',
+      precio:'',
+    }
+  }
+  componentDidMount(){
+    this.getProducto();
+  }
+
+  async getProducto() {
+  try{
+    const res= await axios.get('localhost');
+    console.log(res.data)
+    this.setState({lista:res.data})
+
+  }catch (error) {console.error(error)}
+
+  async guardar(event){
+    event.preventDefault();
+    try{
+      let{nombre,precio}= this.state;
+      const obj= {nombre,precio}
+      const res = await axios.post('localhost',obj);
+      console.log(res.data)
+    }catch(error){ console.log(error)
+      this.setState({nombre:'', precio:''})
+      this.getProducto();
+
+    }
+
+  }
+// HASTA AQUI
+>>>>>>> 5010716934ff5386bf8127bc22b7b197e83a844a
   return (
     <View style={styles.container}>
       <Text>Bienvenido a APP  </Text>
 
       <Button style={styles.iniciar} title='Ir About' onPress={goAbout} backgroundColor='red'/>
 
+<<<<<<< HEAD
+=======
+      <TextInput style={styles.input}
+      placeholder="Nombre"
+      onChangeText={(nombre)=>this.setState({nombre})}
+      value={this.state.nombre}/>
+
+<TextInput style={styles.input}
+      placeholder="Precio"
+      onChangeText={(precio)=>this.setState({precio})}
+      value={this.state.nombre}/>
+
+     <TouchableOpacity style={styles.buttonGuardar}>
+      onPress={this.guardar}
+      <Text style={styles.ButtonTexto}>Guardar</Text>
+
+     </TouchableOpacity>
+
+     <View style={{flex:1}}>
+      {this.state.lista.map(item =>(
+        <View style={styles.mycard} key={item.id}>
+          <Text>{item.nombre}</Text>
+          <Text>{item.precio}</Text>
+        </View>
+      ))}
+     </View>
+
+>>>>>>> 5010716934ff5386bf8127bc22b7b197e83a844a
     </View>
   )
 }
@@ -77,12 +146,12 @@ const styles = StyleSheet.create({
   item: {
     flexDirection: 'row',
     display: 'block'
-    /* padding: 16,
+    padding: 16,
     marginTop: 16,
     borderColor: '#bbb',
     borderWidth: 1,
     borderStyle: 'Dashed',
-    borderRadius: 10 */
+    borderRadius: 10
 
   },
   imagen: {
@@ -97,3 +166,17 @@ const styles = StyleSheet.create({
     backgroundColor: 'red'
   }
 })
+*/
+import React from 'react'
+import Layout from '../components/Layout.js'
+import InjertosList from '../components/InjertoList.js'
+
+const HomeScreen = () => {
+  return (
+    <Layout>
+      <InjertosList />
+    </Layout>
+  )
+}
+
+export default HomeScreen

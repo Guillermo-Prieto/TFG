@@ -5,9 +5,12 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "lint": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
+    "lint-fix": "npm run lint -- --fix"
   },
   "dependencies": {
+    "@expo/vector-icons": "^13.0.0",
     "@expo/webpack-config": "^0.16.24",
     "@react-navigation/drawer": "^6.4.1",
     "@react-navigation/native": "^6.0.10",
@@ -33,6 +36,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "babel-preset-expo": "^9.1.0",
     "eslint": "^8.15.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
