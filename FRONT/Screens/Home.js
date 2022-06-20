@@ -1,5 +1,5 @@
 // import { StatusBar } from 'expo-status-bar'
-import React from 'react'
+/* import React from 'react'
 import { StyleSheet, Text, View, Button } from 'react-native'
 import { event } from 'react-native-reanimated'
 import axios from 'axios'
@@ -12,7 +12,7 @@ export default function About ({ navigation }) {
   }
 
   //VIDEO DE LISTADO
-  constructor() {
+  constructor(); {
     super()
     this.guardar= this.guardar.bind(this)
     this.state={
@@ -63,7 +63,7 @@ export default function About ({ navigation }) {
       placeholder="Precio"
       onChangeText={(precio)=>this.setState({precio})}
       value={this.state.nombre}/>
-      
+
      <TouchableOpacity style={styles.buttonGuardar}>
       onPress={this.guardar}
       <Text style={styles.ButtonTexto}>Guardar</Text>
@@ -85,7 +85,7 @@ export default function About ({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { 
+  container: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
@@ -141,12 +141,12 @@ const styles = StyleSheet.create({
   item: {
     flexDirection: 'row',
     display: 'block'
-    /* padding: 16,
+    padding: 16,
     marginTop: 16,
     borderColor: '#bbb',
     borderWidth: 1,
     borderStyle: 'Dashed',
-    borderRadius: 10 */
+    borderRadius: 10
 
   },
   imagen: {
@@ -161,3 +161,17 @@ const styles = StyleSheet.create({
     backgroundColor: 'red'
   }
 })
+*/
+import React from 'react'
+import Layout from '../components/Layout.js'
+import InjertosList from '../components/InjertoList.js'
+
+const HomeScreen = () => {
+  return (
+    <Layout>
+      <InjertosList />
+    </Layout>
+  )
+}
+
+export default HomeScreen

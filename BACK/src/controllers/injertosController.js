@@ -247,7 +247,7 @@ controller.prediccion = (req, res) => {
                   }
                 );   
 
-                res.send(solucion);
+                res.json(solucion);
                 
                 
                 

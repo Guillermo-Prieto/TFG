@@ -19,7 +19,7 @@ router.get('/injertos/crear', (req, res) => {
 router.post('/injertos/crear', injertosController.addInjerto);
 
 router.get("/injertos/:id", injertosController.getInjerto); 
-router.get("/injertos/delete/:id", injertosController.deleteInjerto);
+router.delete("/injertos/:id", injertosController.deleteInjerto);
 
 router.get("/injertos/:id/predecir", injertosController.prediccion);
 

@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Text, View, StyleSheet, Image } from 'react-native';
+import * as React from 'react'
+import { Text, View, StyleSheet, Image } from 'react-native'
 
 export default function AssetExample () {
   return (
@@ -7,9 +7,9 @@ export default function AssetExample () {
       <Text style={styles.paragraph}>
         Local files and assets can be imported by dragging and dropping them into the editor
       </Text>
-      <Image style={styles.logo} source={require('../assets/snack-icon.png')} />
+      <Image style={styles.logo} source={require('../assets/logo_app.png')} />
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -29,4 +29,4 @@ const styles = StyleSheet.create({
     height: 128,
     width: 128
   }
-});
+})
