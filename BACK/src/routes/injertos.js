@@ -18,8 +18,12 @@ router.get('/injertos/crear', (req, res) => {
 });
 router.post('/injertos/crear', injertosController.addInjerto);
 
-router.get("/injertos/:id", injertosController.getInjerto); 
-router.delete("/injertos/:id", injertosController.deleteInjerto);
+router.get('/injertos/:id', injertosController.getInjerto); 
+router.post('/injertos/:id/editar', injertosController.editInjerto);
+router.get('/injertos/:id/editar', (req, res) => {
+    res.send("Aqui se puede editar un injerto");
+    //res.render('crearInjerto') se mostrara la pagina para crear un injerto
+});
 
 router.get("/injertos/:id/predecir", injertosController.prediccion);
 
