@@ -6,14 +6,20 @@ const { response } = require('express');
 //mostrar todos los injertos con sus valoraciones
 controller.getInjertos = async (req, res) => {
     try {
-        var connection = await getConnection();
-        const result = await connection.query('SELECT id, edad, sexo, imc, hta, dm, dlp, apm, apq, got, gpt, ggt, na,bbt, acvhc, acvhbc, dosisna, aminas, ecografia_1, ecografia_2, ecografia_3,validez,acierto,probabilidad FROM injertos i LEFT OUTER JOIN valoraciones v ON  v.id_injerto = i.id');
-        res.json(result);
+       
+          var connection = await getConnection();
+          const result = await connection.query('SELECT id, edad, sexo, imc, hta, dm, dlp, apm, apq, got, gpt, ggt, na,bbt, acvhc, acvhbc, dosisna, aminas, ecografia_1, ecografia_2, ecografia_3,validez,acierto,probabilidad FROM injertos i LEFT OUTER JOIN valoraciones v ON  v.id_injerto = i.id');
+          res.json(result);
+        
+        
     } catch (error) {
         res.status(500);
         res.send(error.message);
     }
 };
+
+
+
 
 //ver solo un injerto
 controller.getInjerto = async (req, res) => {
@@ -104,12 +110,13 @@ controller.getInjerto = async (req, res) => {
       const connection = await getConnection();
       var respuesta = await connection.query('INSERT INTO injertos set ?', [newInjerto]);
       console.log("Injerto insertado");
+      res.sendStatus(204);
     // Accedemos la primera row insertada 
-      var buscandoID = await connection.query('SELECT id FROM injertos where id = (SELECT MAX(id) FROM injertos)');
+      /*var buscandoID = await connection.query('SELECT id FROM injertos where id = (SELECT MAX(id) FROM injertos)');
       var id = buscandoID[0].id;
       console.log(String(id))
       var ruta =  "/injertos/" + String(id);
-      res.redirect(ruta);
+      res.redirect(ruta);*/
       }
     } catch (error) {
     res.status(500);
@@ -195,9 +202,10 @@ controller.editInjerto = async (req, res)  => {
     const connection = await getConnection();
     await connection.query('UPDATE injertos set ? WHERE id = ?', [newInjerto, id]);
     console.log("Injerto modificado");
+    res.sendStatus(204);
   // Accedemos la primera row insertada 
-    var ruta =  "/injertos/" + String(id);
-    res.redirect(ruta);
+    //var ruta =  "/injertos/" + String(id);
+    //res.redirect(ruta);
     }
   } catch (error) {
   res.status(500);
@@ -272,6 +280,8 @@ controller.prediccion = async (req, res) => {
 
         };
 
+
+     
 
 
 
