@@ -20,11 +20,7 @@ const usuariosRoutes = require('./routes/usuarios');
 app.use(morgan('dev')); //nos informa de las peticiones realizadas
 app.use(express.urlencoded({extended: false})); //para aceptar desde los formularios los datos sencillos (false) que den los usuarios
 app.use(express.json()); //para aceptar json
-app.use(cors({
-    origin: ["http://localhost:8000"],
-    methods: ["GET", "POST"],
-    credentials: true,
-}));
+app.use(cors());
 app.use(cookieParser());
 app.use(
     session({

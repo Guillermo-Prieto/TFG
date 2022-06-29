@@ -14,7 +14,7 @@ router.get('/injertos', injertosController.getInjertos);
 });*/
 router.get('/', (req, res) =>   {  
     
-   res.send('pagina principañ')
+   res.send('pagina principal')
 });
 
 router.post('/injertos/crear', injertosController.addInjerto);
