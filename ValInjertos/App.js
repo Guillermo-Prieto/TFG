@@ -13,9 +13,12 @@ const App = ()=> {
   return(
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component = {HomeScreen} />
-        <Stack.Screen name="Prueba" component={PruebaScreen} />
-        
+        <Stack.Screen 
+        name="Home" 
+        component = {HomeScreen} 
+        options={{headerStyle:{backgroundColor: "#9af88c"},}}
+        />
+        <Stack.Screen name="Prueba" component={PruebaScreen} />       
         <Stack.Screen name="Login" component = {LoginScreen} />
        
 

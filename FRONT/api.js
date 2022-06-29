@@ -6,12 +6,11 @@ export const deleteInjerto = async (id) => {
   })
 }
 
-export const getInjertos = async () => {
-  const res = await fetch(API, {
-    method: 'GET'
-  })
 
-  return await res.json()
+export const getInjertos = async () =>{
+  const res = await fetch('http://localhost:8000/injertos', {method: 'GET'});
+  return await res.json();
+  
 }
 
 /* export const saveTask = async (newTask) => {

@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
-import { View, Text, FlatList } from 'react-native';
+import { View , StyleSheet } from 'react-native';
 import {getInjertos} from '../api';
+import InjertosList from '../components/InjertosList'
+import Layout from "../components/Layout";
 
 const HomeScreen = () => {
     const [injertos, setInjertos] = useState([])  
@@ -8,9 +10,6 @@ const HomeScreen = () => {
     const loadInjertos = async () =>{
         const data = await getInjertos();
         setInjertos(data);
-         
-      
-
     }
 
     useEffect(() => {    
@@ -19,19 +18,12 @@ const HomeScreen = () => {
     console.log({injertos})  
     
     return (
-        <View>
-        <FlatList
-            datos={injertos}
-            renderItem = {(item) =>{
-                console.log(item);
-                return <Text>Hello world</Text>
-
-            }}
-        />
-        </View>
+        
+            <Layout>
+                <InjertosList  injertos ={injertos}/>
+            </Layout>
+        
     )
-
-
 }
 
 export default HomeScreen

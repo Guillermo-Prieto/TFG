@@ -9,6 +9,7 @@ controller.getInjertos = async (req, res) => {
        
           var connection = await getConnection();
           const result = await connection.query('SELECT id, edad, sexo, imc, hta, dm, dlp, apm, apq, got, gpt, ggt, na,bbt, acvhc, acvhbc, dosisna, aminas, ecografia_1, ecografia_2, ecografia_3,validez,acierto,probabilidad FROM injertos i LEFT OUTER JOIN valoraciones v ON  v.id_injerto = i.id');
+         
           res.json(result);
         
         
