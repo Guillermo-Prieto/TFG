@@ -7,12 +7,40 @@ controller.getUsuarios = async (req, res) => {
     try {
         var connection = await getConnection();
         const result = await connection.query('SELECT * FROM usuarios');
-        res.json(result);
+        req.session.save(function(err) {
+        
+            res.json(result);
+          })
+        
     } catch (error) {
-        res.status(500);
-        res.send(error.message);
+        req.session.save(function(err) {
+            res.status(500);
+            res.send(error.message);
+          })
+        
     }
   };
+
+  controller.getUser = async (req, res, next) => {
+    try {
+        var connection = await getConnection();
+        const result = await connection.query('SELECT * FROM usuarios where dni = ?', req.params.dni);
+        req.session.save(function(err) {
+        
+            res.json(result);
+          })
+    } catch (error) {
+        req.session.save(function(err) {
+            res.status(500);
+            res.send(error.message);
+          })
+    }
+  };
+
+  controller.addUser = async (req, res) => {
+
+  };
+
 
 
 

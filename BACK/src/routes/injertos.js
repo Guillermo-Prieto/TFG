@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const injertosController = require('../controllers/injertosController');
-const { isLoggedIn } = require('../middlewares/auth');
+const { isLoggedIn, isAdmin } = require('../middlewares/auth');
 
 router.get('/injertos', injertosController.getInjertos);
 /*router.get('/injertos', (req, res) =>   {  
