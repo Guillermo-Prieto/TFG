@@ -13,7 +13,7 @@ controller.registrar = async (req, res) => {
         const contraseña = req.body.contraseña;
         var connection = await getConnection();
         connection.query('SELECT * FROM usuarios WHERE dni = ?;', dni, (err, result) => {
-          if(!err){
+          if(result.length!==0){
 
             res.status(400);
             res.send({ message: "El usuario ya existe" });

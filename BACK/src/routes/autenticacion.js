@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const autenticacionController = require('../controllers/autenticacionController');
-const { isLoggedIn } = require('../lib/auth');
+const { isLoggedIn, isNotLoggedIn } = require('../middlewares/auth');
 const jwt = require('jsonwebtoken');
 
 router.post("/logout", isLoggedIn, (req, res) => {
@@ -13,8 +13,8 @@ router.post("/logout", isLoggedIn, (req, res) => {
   });
 });
 
-router.post('/registrar', autenticacionController.registrar);
-router.post('/login', autenticacionController.login);
+router.post('/registrar', isNotLoggedIn, autenticacionController.registrar);
+router.post('/login', isNotLoggedIn, autenticacionController.login);
 
 
 module.exports = router;

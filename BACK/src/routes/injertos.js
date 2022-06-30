@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const injertosController = require('../controllers/injertosController');
-const { isLoggedIn } = require('../lib/auth');
+const { isLoggedIn } = require('../middlewares/auth');
 
 router.get('/injertos', injertosController.getInjertos);
 /*router.get('/injertos', (req, res) =>   {  
@@ -12,10 +12,10 @@ router.get('/injertos', injertosController.getInjertos);
         res.send(resut);
     });
 });*/
-router.get('/', (req, res) =>   {  
+/*router.get('/', isLoggedIn, (req, res) =>   {  
     
    res.send('pagina principal')
-});
+});*/
 
 router.post('/injertos/crear', injertosController.addInjerto);
 

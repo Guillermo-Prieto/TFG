@@ -25,11 +25,11 @@ app.use(cookieParser());
 app.use(
     session({
       key: "userId",
-      secret: "sinjertosSecreto",
-      resave: false,
+      secret: "injertosSecreto",
+      resave: true,
       saveUninitialized: false,
       cookie: {
-        expires: 60 * 60 * 24, //se mantendra la sesion en 24 h
+        maxAge: 7200000, //se mantendra la sesion
       },
     })
   );
