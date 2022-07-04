@@ -400,6 +400,15 @@ controller.prediccion = async (req, res) => {
   var aminas = injerto[0].aminas;
 
   var params = `edad=${edad}&sexo=${sexo}&imc=${imc}&hta=${hta}&dm=${dm}&dlp=${dlp}&apm=${apm}&apq=${apq}&got=${got}&gpt=${gpt}&ggt=${ggt}&na=${na}&bbt=${bbt}&acvhc=${acvhc}&acvhbc=${acvhbc}&dosisna=${dosisna}&aminas=${aminas}&ecografia_1=${ecografia_1}&ecografia_2=${ecografia_2}&ecografia_3=${ecografia_3}`;
+  //comprobamos que no hay ninguna valoracion para ese injerto especifico
+  connection.query('SELECT * FROM valoraciones WHERE id_injerto = ?;', req.params.id, (err, result) => {
+    if(result.length!==0){ //existe una valoracion
+      req.session.save(function(err) {
+        res.status(400);
+        res.send({ message: "Este injerto ya tiene una valoración" });})
+      
+    }})
+    //si no hay ninguna valoracion procedemos a hacer la peticion
             
             request(
               {
