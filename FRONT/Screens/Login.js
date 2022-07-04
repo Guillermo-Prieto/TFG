@@ -29,7 +29,7 @@ export default function Login () {
           </View>
 
           <Button style={styles.iniciar} title='Iniciar Sesión' backgroundColor='red' onPress={() =>
-            this.props.navigation.navigate('Home')
+            this.props.navigation.navigate('HomeScreen')
           }/>
 
         </View>
