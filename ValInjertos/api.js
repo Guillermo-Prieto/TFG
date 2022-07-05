@@ -11,7 +11,7 @@ export const getInjerto = async (injertoId) =>{
     
 }
 export const crearInjerto = async (newInjerto) =>{
-    const res = await fetch(`${API}/crear`, {
+    const res = await fetch(API, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -25,7 +25,7 @@ export const crearInjerto = async (newInjerto) =>{
 
 export const editarInjerto = async (injertoId, newInjerto) => {
     console.log(injertoId, newInjerto)
-    const res = await fetch(`${API}/${injertoId}/editar`, {
+    const res = await fetch(`${API}/${injertoId}`, {
       method: "PUT",
       headers: {
         Accept: "application/json",
@@ -63,18 +63,6 @@ export const logout = async () =>{
     return await res.json();
     
 }
-export const registrar = async (newUser) =>{
-    const res = await fetch('http://localhost:8000/registrar', {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newUser),
-    });
-    return await res.json();
-    
-}
 
 //usuarios
 const API2 = "http://localhost:8000/usuarios";
@@ -89,9 +77,22 @@ export const getUser = async (usuarioId) =>{
     
 }
 
+export const crearUsuario = async (newUser) =>{
+  const res = await fetch(API2, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newUser),
+  });
+  return await res.json();
+  
+}
+
 export const editarUsuario = async (usuarioId, newUser) => {
     console.log(usuarioId, newUser)
-    const res = await fetch(`${API2}/${usuarioId}/editar`, {
+    const res = await fetch(`${API2}/${usuarioId}`, {
       method: "PUT",
       headers: {
         Accept: "application/json",

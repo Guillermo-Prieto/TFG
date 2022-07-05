@@ -67,6 +67,7 @@ controller.getInjertos = async (req, res) => {
           
          req.session.save(function(err) {
           // session saved
+          res.status(200);
            res.send(arrayInjertos)
      })
           
@@ -404,42 +405,45 @@ controller.prediccion = async (req, res) => {
   connection.query('SELECT * FROM valoraciones WHERE id_injerto = ?;', req.params.id, (err, result) => {
     if(result.length!==0){ //existe una valoracion
       req.session.save(function(err) {
-        res.status(400);
-        res.send({ message: "Este injerto ya tiene una valoración" });})
+        
+        res.status(400).json({ message: "Este injerto ya tiene una valoración" });})
       
-    }})
-    //si no hay ninguna valoracion procedemos a hacer la peticion
+    }else{
+      //si no hay ninguna valoracion procedemos a hacer la peticion
             
-            request(
-              {
-                method: "GET",
-                uri: `http://localhost:8080/predict?${params}`,
-                json: true,
-              },
-              async (error, response) => {
-                if (error) {
-                  throw error;
-                }
-                var solucion = response.body;
-                if(solucion['clasificacion'] == 'No valido'){
-                  var clasificacion = 1
-                }
-                else{
-                  var clasificacion = 0;
-                }
-                
-                var probabilidad = solucion['probabilidad'];
-                const connection = await getConnection();
-                var resultado = await connection.query("INSERT INTO valoraciones (validez, probabilidad, id_injerto) VALUES (?,?,?);",
-                [clasificacion, probabilidad, req.params.id]);   
-                req.session.save(function(err) {
-                  
-                res.json(solucion);})
-                
-                
-                
-              });
-              
+      request(
+        {
+          method: "GET",
+          uri: `http://localhost:8080/predict?${params}`,
+          json: true,
+        },
+        async (error, response) => {
+          if (error) {
+            throw error;
+          }
+          var solucion = response.body;
+          if(solucion['clasificacion'] == 'No valido'){
+            var clasificacion = 1
+          }
+          else{
+            var clasificacion = 0;
+          }
+          
+          var probabilidad = solucion['probabilidad'];
+          const connection = await getConnection();
+          var resultado = await connection.query("INSERT INTO valoraciones (validez, probabilidad, id_injerto) VALUES (?,?,?);",
+          [clasificacion, probabilidad, req.params.id]);   
+          req.session.save(function(err) {
+            
+          res.status(200).json(solucion);})
+          
+          
+          
+        });
+        
+    }})
+    
+    
             } catch (error) {
               req.session.save(function(err) {
                 // session saved

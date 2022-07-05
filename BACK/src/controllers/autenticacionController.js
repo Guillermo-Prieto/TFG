@@ -5,46 +5,16 @@ const { response } = require('express');
 const bcrypt = require("bcrypt");
 const session =  require('express-session');
 const jwt = require('jsonwebtoken');
-const saltRounds = 10;
-
-controller.registrar = async (req, res) => {
-    try {
-        const dni = req.body.dni;
-        const contraseña = req.body.contraseña;
-        var connection = await getConnection();
-        connection.query('SELECT * FROM usuarios WHERE dni = ?;', dni, (err, result) => {
-          if(result.length!==0){
-
-            res.status(400);
-            res.send({ message: "El usuario ya existe" });
-          }})
-
-        bcrypt.hash(contraseña, saltRounds, async(err, hash) => {
-            if (err) {
-              console.log(err);
-            }
-            var connection = await getConnection();
-            await connection.query('INSERT INTO usuarios (dni, contraseña, rol) VALUES (?,?,?)', [dni, hash, 'usuario']);
-            console.log('usuario insertado')
-            res.sendStatus(204);
-
-
-    })
-
-    } catch (error) {
-        res.status(500);
-        res.send(error.message);
-    }
-};
 
 controller.login = async (req, res) => {
     try {
-        const dni = req.body.dni;
+        const dni = req.body.dni.toUpperCase();
         const contraseña = req.body.contraseña;
        
         var connection = await getConnection();
         connection.query('SELECT * FROM usuarios WHERE dni = ?;', dni, (err, result) => {
             if(err){
+              res.status(400);
                 res.send(err);
             }
             if (result.length > 0) {
@@ -54,11 +24,11 @@ controller.login = async (req, res) => {
                     req.session.user = result;
                     res.status(200).json({message: "usuario loggeado", "token": token});
                   } else {
-                    res.send({ message: "Usuario o contraseña incorrectos" });
+                    res.status(400).json({ message: "Usuario o contraseña incorrectos" });
                   }
                 });
               } else {
-                res.send({ message: "El usuario no existe" });
+                res.status(400).json({ message: "El usuario no existe" });
               }
         });
 
@@ -66,7 +36,14 @@ controller.login = async (req, res) => {
         res.status(500);
         res.send(error.message);
     }
-}
+};
+
+controller.logout = async(req, res) => {
+  req.session.destroy((err) => {
+    if (err) throw err;
+    res.status(200).json({ message: "Usuario ha cerrado sesion" });
+  });
+};
 
 module.exports = controller;
 

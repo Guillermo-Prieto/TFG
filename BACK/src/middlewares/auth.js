@@ -28,7 +28,7 @@ isAdmin (req, res, next) {
     }
 },
 isTheSameUserOrAdmin (req, res, next){
-    if((req.session.user[0].dni == req.params.dni) || (req.session.user[0].rol == "administrador")){
+    if((req.session.user[0].dni == req.params.dni.toUpperCase()) || (req.session.user[0].rol == "administrador")){
         next();
     }
     else{

@@ -29,7 +29,7 @@ app.use(
       resave: true,
       saveUninitialized: false,
       cookie: {
-        maxAge: 7200000, //se mantendra la sesion
+        maxAge: 3600000, //se mantendra la sesion en ms
       },
     })
   );
@@ -38,8 +38,9 @@ app.use(
 
 //routes 
 
-app.use(injertosRoutes); 
-app.use(autenticacionRoutes); 
+
+app.use(autenticacionRoutes);
+app.use(injertosRoutes);  
 app.use(usuariosRoutes); 
 
 
