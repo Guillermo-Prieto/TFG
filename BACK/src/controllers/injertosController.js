@@ -65,23 +65,16 @@ controller.getInjertos = async (req, res) => {
            
           }
           
-         req.session.save(function(err) {
-          // session saved
           res.status(200);
            res.send(arrayInjertos)
-     })
-          
-          
-        
+    
         
     } catch (error) {
-      req.session.save(function(err) {
-        // session saved
-        
+      
         res.status(500);
         res.send(error.message);
-      })
-    }
+      }
+    
 };
 
 
@@ -146,17 +139,14 @@ controller.getInjerto = async (req, res) => {
       
       
       
-      req.session.save(function(err) {
-        // session saved
-         res.send(injerto);
-   })
-  } catch (error) {
-    req.session.save(function(err) {
-      // session saved
       
+         res.send(injerto);
+   
+  } catch (error) {
+    
       res.status(500);
       res.send(error.message);
-    })
+  
   }
 };
 
@@ -167,12 +157,9 @@ controller.getInjerto = async (req, res) => {
     try {
       var edad = req.body.edad;
       if(req.body.sexo == null){
-        req.session.save(function(err) {
-          // session saved
-          
-    
+        
         res.status(400).json({ message: "No pueden ser nulos los campos" });
-        })
+        
       }
       else{
       if(req.body.sexo == 'masculino'){
@@ -188,10 +175,9 @@ controller.getInjerto = async (req, res) => {
       var apm = req.body.apm; 
       var apq = req.body.apq; //el boton devolvera true o false
       if(req.body.ecografia == null){
-        req.session.save(function(err) {
         
-        res.status(400).json({ message: "No pueden ser nulos los campos" });})
-      }
+        res.status(400).json({ message: "No pueden ser nulos los campos" });}
+      
       else{
         if(req.body.ecografia == 'normal'){
           var ecografia_1 = 1;
@@ -228,11 +214,9 @@ controller.getInjerto = async (req, res) => {
       console.log("se ha procesado el cuerpo")
       
       if (edad == null || imc == null || got == null || gpt == null || ggt == null || na == null || bbt == null)  {
-        req.session.save(function(err) {
-          // session saved
-          
+        
           res.status(400).json({ message: "No pueden ser nulos los campos" });
-        })
+       
         
       }
       
@@ -248,22 +232,12 @@ controller.getInjerto = async (req, res) => {
       const connection = await getConnection();
       var respuesta = await connection.query('INSERT INTO injertos set ?', [newInjerto]);
       console.log("Injerto insertado");
-      req.session.save(function(err) {
-        // session saved
-        res.sendStatus(204);
-   })
       
-    // Accedemos la primera row insertada 
-      /*var buscandoID = await connection.query('SELECT id FROM injertos where id = (SELECT MAX(id) FROM injertos)');
-      var id = buscandoID[0].id;
-      console.log(String(id))
-      var ruta =  "/injertos/" + String(id);
-      res.redirect(ruta);*/
+      res.status(200).json({ message: "Injerto creado" });
       }
     } catch (error) {
-      req.session.save(function(err) {
-        // session saved
-        res.status(500);})
+     
+        res.status(500);
     
     
     }  
@@ -277,48 +251,12 @@ controller.editInjerto = async (req, res)  => {
   try {
     var id = req.params.id;
     var edad = req.body.edad;
-    if(req.body.sexo == null){
-      req.session.save(function(err) {
-        
-      res.status(400).json({ message: "No pueden ser nulos los campos" });})
-    }
-    else{
-    if(req.body.sexo == 'masculino'){
-      var sexo = 1;
-    }
-    else{
-      var sexo = 0;
-    }}
     var imc = req.body.imc;
     var hta = req.body.hta;
     var dm = req.body.dm;
     var dlp = req.body.dlp;
     var apm = req.body.apm; 
     var apq = req.body.apq; //el boton devolvera true o false
-    if(req.body.ecografia == null){
-      req.session.save(function(err) {
-        
-      res.status(400).json({ message: "No pueden ser nulos los campos" });})
-    }
-    else{
-      if(req.body.ecografia == 'normal'){
-        var ecografia_1 = 1;
-        var ecografia_2 = 0;
-        var ecografia_3 = 0;
-      }
-      else if(req.body.ecografia == 'patologica'){
-        var ecografia_1 = 0;
-        var ecografia_2 = 1;
-        var ecografia_3 = 0;
-      }
-      else{
-        var ecografia_1 = 0;
-        var ecografia_2 = 0;
-        var ecografia_3 = 1;
-      }
-    }
-    
-    
     var got = req.body.got;
     var gpt = req.body.gpt;
     var ggt = req.body.ggt;
@@ -333,17 +271,35 @@ controller.editInjerto = async (req, res)  => {
       dosisna = req.body.dosisna;
     }
     var aminas = req.body.aminas;
-    console.log("se ha procesado el cuerpo")
-    
-    if (edad == null || imc == null || got == null || gpt == null || ggt == null || na == null || bbt == null)  {
-      req.session.save(function(err) {
-       
-      res.status(400).json({ message: "No pueden ser nulos los campos" });})
+    console.log(req.body.edad);
+    if(req.body.sexo == null || req.body.ecografia == null || edad == null || imc == null || got == null || gpt == null || ggt == null || na == null || bbt == null){ 
+      res.status(400).json({ message: "No pueden ser nulos los campos" })
+    }
+    else{
+    if(req.body.sexo == 'masculino'){
+      var sexo = 1;
+    }
+    else{
+      var sexo = 0;
+    }
+    if(req.body.ecografia == 'normal'){
+      var ecografia_1 = 1;
+      var ecografia_2 = 0;
+      var ecografia_3 = 0;
+    }
+    else if(req.body.ecografia == 'patologica'){
+      var ecografia_1 = 0;
+      var ecografia_2 = 1;
+      var ecografia_3 = 0;
+    }
+    else{
+      var ecografia_1 = 0;
+      var ecografia_2 = 0;
+      var ecografia_3 = 1;
     }
     
     
-    else{
-      console.log("ha pasado la validacion")
+    console.log("se ha procesado el cuerpo")
       
       var fecha = new Date();
       const newInjerto = {
@@ -353,19 +309,15 @@ controller.editInjerto = async (req, res)  => {
     const connection = await getConnection();
     await connection.query('UPDATE injertos set ? WHERE id = ?', [newInjerto, id]);
     console.log("Injerto modificado");
-    req.session.save(function(err) {
-          res.sendStatus(204);})
-  // Accedemos la primera row insertada 
-    //var ruta =  "/injertos/" + String(id);
-    //res.redirect(ruta);
-    }
-  } catch (error) {
-    req.session.save(function(err) {
-      // session saved
-      
+    res.status(200).json({ message: "Injerto modificado" });
+    
+  
+    }}
+   catch (error) {
+    
       res.status(500);
       res.send(error.message);
-    })
+    
   
   }  
 
@@ -404,9 +356,8 @@ controller.prediccion = async (req, res) => {
   //comprobamos que no hay ninguna valoracion para ese injerto especifico
   connection.query('SELECT * FROM valoraciones WHERE id_injerto = ?;', req.params.id, (err, result) => {
     if(result.length!==0){ //existe una valoracion
-      req.session.save(function(err) {
-        
-        res.status(400).json({ message: "Este injerto ya tiene una valoración" });})
+      
+        res.status(400).json({ message: "Este injerto ya tiene una valoración" });
       
     }else{
       //si no hay ninguna valoracion procedemos a hacer la peticion
@@ -433,9 +384,9 @@ controller.prediccion = async (req, res) => {
           const connection = await getConnection();
           var resultado = await connection.query("INSERT INTO valoraciones (validez, probabilidad, id_injerto) VALUES (?,?,?);",
           [clasificacion, probabilidad, req.params.id]);   
-          req.session.save(function(err) {
+          
             
-          res.status(200).json(solucion);})
+          res.status(200).json(solucion);
           
           
           
@@ -445,12 +396,10 @@ controller.prediccion = async (req, res) => {
     
     
             } catch (error) {
-              req.session.save(function(err) {
-                // session saved
-                
+             
                 res.status(500);
                 res.send(error.message);
-              })
+              
              
               
               }  

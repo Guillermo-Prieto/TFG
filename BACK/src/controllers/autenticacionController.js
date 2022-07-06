@@ -5,6 +5,7 @@ const { response } = require('express');
 const bcrypt = require("bcrypt");
 const session =  require('express-session');
 const jwt = require('jsonwebtoken');
+const config = require("../config");
 
 controller.login = async (req, res) => {
     try {
@@ -20,8 +21,8 @@ controller.login = async (req, res) => {
             if (result.length > 0) {
                 bcrypt.compare(contraseña, result[0].contraseña, (error, response) => {
                   if (response) {
-                    const token = jwt.sign({ dni: req.body.dni }, 'secret', { expiresIn: '5h' });
-                    req.session.user = result;
+                    const token = jwt.sign({ id: dni }, config.SECRET, { expiresIn: 86400 }); //24h
+                    
                     res.status(200).json({message: "usuario loggeado", "token": token});
                   } else {
                     res.status(400).json({ message: "Usuario o contraseña incorrectos" });
@@ -39,11 +40,20 @@ controller.login = async (req, res) => {
 };
 
 controller.logout = async(req, res) => {
-  req.session.destroy((err) => {
-    if (err) throw err;
+  try{
+    let randomNumberToAppend = toString(Math.floor((Math.random() * 1000) + 1));
+    let hashedRandomNumberToAppend = await bcrypt.hash(randomNumberToAppend, 10);
+    //concatenar el token del usuario con el numero random y darle ese valor al token
+    req.headers["x-access-token"] = req.headers["x-access-token"] + hashedRandomNumberToAppend;
     res.status(200).json({ message: "Usuario ha cerrado sesion" });
-  });
+  }
+  
+catch(err){
+  res.status(500).json(err.message);
+}
 };
+/*Ahora con el token cambiado ya no será valido, se tendra que volver a loggear el usuario*/ 
+
 
 module.exports = controller;
 

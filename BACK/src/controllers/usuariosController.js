@@ -15,16 +15,15 @@ controller.getUsuarios = async (req, res) => {
     try {
         var connection = await getConnection();
         const result = await connection.query('SELECT * FROM usuarios');
-        req.session.save(function(err) {
         
             res.status(200).json(result);
-          })
+          
         
     } catch (error) {
-        req.session.save(function(err) {
+        
             res.status(500);
             res.send(error.message);
-          })
+          
         
     }
   };
@@ -33,15 +32,14 @@ controller.getUsuarios = async (req, res) => {
     try {
         var connection = await getConnection();
         const result = await connection.query('SELECT * FROM usuarios where dni = ?', req.params.dni.toUpperCase());
-        req.session.save(function(err) {
         
             res.status(200).json(result);
-          })
+          
     } catch (error) {
-        req.session.save(function(err) {
+        
             res.status(500);
             res.send(error.message);
-          })
+          
     }
   };
 
@@ -56,26 +54,25 @@ controller.getUsuarios = async (req, res) => {
      
       console.log("Entra en las valoraciones");
       if(dni == null || contraseña == null || email == null || telefono == null || nombre == null || apellidos== null){
-        req.session.save(function(err) {
+        
        
-          res.status(400).json({ message: "Los campos no pueden ser nulos" });})
+          res.status(400).json({ message: "Los campos no pueden ser nulos" });
           
       }
       
       else if(!regexDNI.test(dni) || !regexEmail.test(email.toLowerCase()) || !regexTelefono.test(telefono)) {
         console.log("pasa las valoraciones de nulos");
         
-        req.session.save(function(err) {
+        
        
-          res.status(400).json({ message: "El formato introducido de DNI, email o teléfono no es el correcto" });})
+          res.status(400).json({ message: "El formato introducido de DNI, email o teléfono no es el correcto" });
        
       }
       
       else if(!regexContraseña.test(contraseña)){
         console.log("pasa las valoraciones de regex");
-        req.session.save(function(err) {
-       
-          res.status(400).json({ message: "La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula." });})
+        
+          res.status(400).json({ message: "La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula." });
           
         }
      
@@ -85,9 +82,9 @@ controller.getUsuarios = async (req, res) => {
         connection.query('SELECT * FROM usuarios WHERE dni = ?;', dni, (err, result) => {
           console.log("se ha conectado");
           if(result.length!==0){
-            req.session.save(function(err) {
+            
          
-              res.status(400).json({ message: "El usuario ya existe" });})
+              res.status(400).json({ message: "El usuario ya existe" });
             
           }})
           console.log("pasa la valoracion de existencia")
@@ -100,18 +97,18 @@ controller.getUsuarios = async (req, res) => {
             var connection = await getConnection();
             await connection.query('INSERT INTO usuarios (dni, nombre, apellidos, telefono, email, contraseña, rol) VALUES (?, ?, ?, ?,?,?,?)', [dni, nombre, apellidos, telefono, email, hash, "usuario"]);
             console.log('usuario insertado')
-            req.session.save(function(err) {
+           
          
-              res.sendStatus(204);})
+              res.sendStatus(204);
   
       })
       }
       
     } catch (error) {
-      req.session.save(function(err) {
+     
         res.status(500);
         res.send(error.message);
-      })
+      
     }
   }
 
@@ -129,24 +126,22 @@ controller.getUsuarios = async (req, res) => {
       console.log("esperando conexion");
       console.log(regexEmail.test(email));
       if(!regexEmail.test(email) || !regexTelefono.test(telefono)){
-        req.session.save(function(err) {
+        
        
-          res.status(400).json({ message: "El formato introducido de telefono o email no es el correcto" });})
+          res.status(400).json({ message: "El formato introducido de telefono o email no es el correcto" });
       }
 
       const connection = await getConnection();
       
       await connection.query('UPDATE usuarios SET nombre = ?, apellidos = ?, telefono = ?, email = ? WHERE dni = ?', [nombre, apellidos, telefono, email, dni]);
       console.log("Usuario modificado");
-      req.session.save(function(err) {
-            res.sendStatus(204);})
+      
+            res.sendStatus(204);
     } catch (error) {
-      req.session.save(function(err) {
-        // session saved
-        
+     
         res.status(500);
         res.send(error.message);
-      })
+      
 
   };
 };
@@ -159,8 +154,8 @@ controller.modificarContraseña = async (req, res) => {
     var contraseñaNueva2= req.body.contraseñaNueva2;
     console.log(regexContraseña.test(contraseñaNueva1))
     if(!regexContraseña.test(contraseñaNueva1)){
-      req.session.save(function(err) {
-        res.status(400).json({ message: "La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula." });})
+      
+        res.status(400).json({ message: "La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula." });
 
     }
     else{
@@ -169,9 +164,9 @@ controller.modificarContraseña = async (req, res) => {
       //cogemos al usuario, comprobamos que tiene autorizacion, se sabe la contraseña actual
       connection.query('SELECT * FROM usuarios WHERE dni = ?;', dni, (err, result) => {
         if(err){
-          req.session.save(function(err) {
+          
             res.status(400);
-            res.send(err);})
+            res.send(err);
             
         }
         bcrypt.compare(contraseñaAntigua, result[0].contraseña, (error, response) => {
@@ -187,21 +182,21 @@ controller.modificarContraseña = async (req, res) => {
                 var connection = await getConnection();
                 await connection.query('UPDATE usuarios SET contraseña = ? WHERE dni = ?', [hash, dni]);
                 console.log('contraseña modificada')
-                req.session.save(function(err) {
-                  res.sendStatus(204);})
+               
+                  res.sendStatus(204);
                 
                 
     
           })} else {
-            req.session.save(function(err) {
+            
               
-              res.status(400).json({ message: "Los campos de las contraseñas nuevas no coinciden" });})
+              res.status(400).json({ message: "Los campos de las contraseñas nuevas no coinciden" });
             
           }
         }
         else {
-          req.session.save(function(err) {
-            res.status(400).json({ message: "La contraseña actual no es correcta" });})
+          
+            res.status(400).json({ message: "La contraseña actual no es correcta" });
           
         }});
   
@@ -214,12 +209,10 @@ controller.modificarContraseña = async (req, res) => {
     
   
   } catch (error) {
-    req.session.save(function(err) {
-      // session saved
-      
+    
       res.status(500);
       res.send(error.message);
-    })
+    
   }
 };
 
