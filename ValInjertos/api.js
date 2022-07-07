@@ -14,7 +14,7 @@ export const crearInjerto = async (newInjerto) =>{
     const res = await fetch(API, {
       method: "POST",
       headers: {
-        Accept: "application/json",
+        "Accept": "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newInjerto),
@@ -28,7 +28,7 @@ export const editarInjerto = async (injertoId, newInjerto) => {
     const res = await fetch(`${API}/${injertoId}`, {
       method: "PUT",
       headers: {
-        Accept: "application/json",
+        "Accept": "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newInjerto),
@@ -48,7 +48,7 @@ export const login = async (user) => {
     const res = await fetch('http://localhost:8000/login', {
       method: "POST",
       headers: {
-        Accept: "application/json",
+        "Accept": "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(user),
@@ -81,7 +81,7 @@ export const crearUsuario = async (newUser) =>{
   const res = await fetch(API2, {
     method: "POST",
     headers: {
-      Accept: "application/json",
+      "Accept": "application/json",
       "Content-Type": "application/json",
     },
     body: JSON.stringify(newUser),
@@ -95,7 +95,7 @@ export const editarUsuario = async (usuarioId, newUser) => {
     const res = await fetch(`${API2}/${usuarioId}`, {
       method: "PUT",
       headers: {
-        Accept: "application/json",
+        "Accept": "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newUser),
@@ -114,7 +114,7 @@ export const editarUsuario = async (usuarioId, newUser) => {
     const res = await fetch(`${API2}/${usuarioId}/password`, {
       method: "PUT",
       headers: {
-        Accept: "application/json",
+        "Accept": "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newPassword),
