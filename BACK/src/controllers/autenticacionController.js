@@ -23,7 +23,7 @@ controller.login = async (req, res) => {
                   if (response) {
                     const token = jwt.sign({ id: dni }, config.SECRET, { expiresIn: 86400 }); //24h
                     
-                    res.header("x-access-token",token).status(200).json({message: "usuario loggeado", "token": token});
+                    res.header("authorization",token).status(200).json({message: "usuario loggeado", "token": token});
                   } else {
                     res.status(400).json({ message: "Usuario o contraseña incorrectos" });
                   }
@@ -44,7 +44,7 @@ controller.logout = async(req, res) => {
     let randomNumberToAppend = toString(Math.floor((Math.random() * 1000) + 1));
     let hashedRandomNumberToAppend = await bcrypt.hash(randomNumberToAppend, 10);
     //concatenar el token del usuario con el numero random y darle ese valor al token
-    req.headers["x-access-token"] = req.headers["x-access-token"] + hashedRandomNumberToAppend;
+    req.headers["authorization"] = req.headers["authorization"] + hashedRandomNumberToAppend;
     res.status(200).json({ message: "Usuario ha cerrado sesion" });
   }
   

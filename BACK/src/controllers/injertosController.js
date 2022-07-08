@@ -67,7 +67,6 @@ controller.getInjertos = async (req, res) => {
           
           res.status(200);
            res.send(arrayInjertos)
-    
         
     } catch (error) {
       

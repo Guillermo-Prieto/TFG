@@ -5,8 +5,8 @@ const { getConnection } = require('../database')
 
 const verifyToken = async (req, res, next) =>{
     try {
-    
-        let token = req.headers["x-access-token"]; //cogemos el token de la cabecera
+          
+        let token = req.headers["authorization"]; //cogemos el token de la cabecera
         if (!token) return res.status(403).json({ message: "No se ha dado ningún token" });
         const decoded = jwt.verify(token, config.SECRET);
         req.userID = decoded.id; //creamos una nueva propiedad en request que se llama userID
