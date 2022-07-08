@@ -4,7 +4,7 @@ const injertosController = require('../controllers/injertosController');
 const { isLoggedIn, isAdmin } = require('../middlewares/auth');
 const { verifyToken } = require('../middlewares/verifyToken');
 
-router.use(verifyToken)
+//router.use(verifyToken)
 router.get('/injertos', injertosController.getInjertos);
 router.post('/injertos', injertosController.addInjerto);
 router.get('/injertos/:id', injertosController.getInjerto); 

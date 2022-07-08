@@ -5,6 +5,8 @@ import { TextInput } from 'react-native-web'
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons'
 
 export default function Login () {
+
+  
   return (
     <View >
         <View style={styles.header}>
@@ -28,9 +30,7 @@ export default function Login () {
               <TextInput style={styles.input} placeholder='Contraseña' keyboardtype='numeric'/>
           </View>
 
-          <Button style={styles.iniciar} title='Iniciar Sesión' backgroundColor='red' onPress={() =>
-            this.props.navigation.navigate('HomeScreen')
-          }/>
+          <Button style={styles.iniciar} title='Iniciar Sesión' backgroundColor='red' onPress={this.Logear}/>
 
         </View>
       </View>
