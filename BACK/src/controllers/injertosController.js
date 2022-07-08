@@ -264,6 +264,7 @@ controller.editInjerto = async (req, res)  => {
     var bbt = req.body.bbt;
     var acvhc = req.body.acvhc; 
     var acvhbc = req.body.acvhbc;
+    var acierto = req.body.acierto;
     if(req.body.dosisna == null) {
       var dosisna = 0.0;
     }
@@ -271,7 +272,6 @@ controller.editInjerto = async (req, res)  => {
       dosisna = req.body.dosisna;
     }
     var aminas = req.body.aminas;
-    console.log(req.body.edad);
     if(req.body.sexo == null || req.body.ecografia == null || edad == null || imc == null || got == null || gpt == null || ggt == null || na == null || bbt == null){ 
       res.status(400).json({ message: "No pueden ser nulos los campos" })
     }
@@ -308,6 +308,7 @@ controller.editInjerto = async (req, res)  => {
     console.log("esperando conexion")
     const connection = await getConnection();
     await connection.query('UPDATE injertos set ? WHERE id = ?', [newInjerto, id]);
+    await connection.query('UPDATE valoraciones set acierto=? WHERE id_injerto = ?', [acierto, id]);
     console.log("Injerto modificado");
     res.status(200).json({ message: "Injerto modificado" });
     
@@ -328,7 +329,7 @@ controller.editInjerto = async (req, res)  => {
 
 controller.prediccion = async (req, res) => {
   try{
-
+  var usuario = req.userID;
   const connection = await getConnection();
   var injerto = await connection.query('SELECT * FROM injertos WHERE id = ?', [req.params.id]);    
   var edad = injerto[0].edad;
@@ -382,8 +383,9 @@ controller.prediccion = async (req, res) => {
           
           var probabilidad = solucion['probabilidad'];
           const connection = await getConnection();
-          var resultado = await connection.query("INSERT INTO valoraciones (validez, probabilidad, id_injerto) VALUES (?,?,?);",
-          [clasificacion, probabilidad, req.params.id]);   
+          
+          await connection.query("INSERT INTO valoraciones (validez, probabilidad, id_injerto, id_usuario) VALUES (?,?,?,?);",
+          [clasificacion, probabilidad, req.params.id, usuario]);   
           
             
           res.status(200).json(solucion);
@@ -405,6 +407,7 @@ controller.prediccion = async (req, res) => {
               }  
 
         };
+
 
 
      
