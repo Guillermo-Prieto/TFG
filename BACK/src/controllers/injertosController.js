@@ -2,6 +2,7 @@ const controller = {};
 const { getConnection } = require('../database')
 const request = require('request');
 const { response } = require('express');
+const { default: InjertosItem } = require('../../../ValInjertos/components/InjertosItem');
 
 //mostrar todos los injertos con sus valoraciones
 controller.getInjertos = async (req, res) => {
@@ -110,6 +111,7 @@ controller.getInjerto = async (req, res) => {
       injerto.acvhc = json[0].acvhc;
       injerto.acvhbc = json[0].acvhbc;
       injerto.dosisna = json[0].dosisna;
+      injerto.aminas= json[0].aminas;
       if(json[0].ecografia_1 ==1){
         injerto.ecografia = "normal";
       }

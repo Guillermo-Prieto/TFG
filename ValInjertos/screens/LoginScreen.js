@@ -1,28 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, Button } from 'react-native'
-
 import { TextInput } from 'react-native-web'
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons'
+import { TextField } from '@mui/material';
+import {login}  from '../api';
 
 const LoginScreen = () => {
 
 
-  const[body,setBody] = useState({username: '', password: ''})
+  const[body , setBody] = useState({username: '', password: ''})
 
-  const inputChange = ({target}) => {
-    const {name,value}= target
+  const inputChange = ({ target }) => {
+    const { name , value} = target
     setBody({
       ...body,
       [name]: value
     })
   }
+const onSubmit = () =>{
+  console.log(body)
+}
 
    useEffect(function () {
         console.log('render!')
      })
     
 
-     C
+     
    return (
       <View style={{backgroundColor: '#fff',flex: 1,}}>
         <View style={styles.container}>
@@ -31,7 +35,7 @@ const LoginScreen = () => {
   
             <View style={styles.item}>
                 <AntDesign style={styles.imagen} name="user" size={35} color="black" />
-                <TextInput style={styles.input} placeholder='Usuario' keyboardtype='email' value={body.username} onChange={inputChange} name='username'/>
+                <TextField  fullWidth value={body.username} onChange={inputChange} name='username' style={{obscureText:true, width:250, backgroundColor: 'white'}}/>
                 
             </View>
   
@@ -39,12 +43,11 @@ const LoginScreen = () => {
   
             <View style={styles.item}>
                 <AntDesign style={styles.imagen} name="lock" size={35} color="black" />
-                <TextInput style={styles.input} placeholder='Contraseña' keyboardtype='numeric' value={body.password} onChange={inputChange} name='password'/>
+                <TextField type='password' fullWidth value={body.password} onChange={inputChange} name='password' style={{obscureText:true, width:250, backgroundColor: 'white'}}  />
+
             </View>
   
-            <Button style={styles.iniciar} title='Iniciar Sesión' backgroundColor='red' onPress={() =>
-              this.props.navigation.navigate('Home')
-            }/>
+            <Button style={styles.iniciar} title='Iniciar Sesión' backgroundColor='red' onPress={onSubmit}/>
   
           </View>
         </View>

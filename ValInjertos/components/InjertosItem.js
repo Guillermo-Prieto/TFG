@@ -1,11 +1,50 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
+import {useNavigation} from '@react-navigation/native'
+import { Feather, FontAwesome5  } from '@expo/vector-icons';
 
 const InjertosItem = ({injertos}) => {
+
+  const navigation= useNavigation()
+
   return (
     <View style={styles.item}>
-      <Text>{injertos.edad}</Text>
-      <Text>{injertos.sexo}</Text>
+      <View style={styles.container}>
+        <TouchableOpacity style={{paddingRight:30}} onPress={() => navigation.navigate('ViewInjertos', {id: injertos.id})} >
+          <View style={{flexDirection: 'row',display: 'block'}}>
+            <Text style={{fontWeight: 'bold'}}>ID: </Text>
+            <Text style={{fontWeight: 'bold'}}> {injertos.id}</Text>
+          </View>
+          <View style={{flexDirection: 'row',display: 'block'}}>
+            <Text>Edad: </Text>
+            <Text>{injertos.edad} </Text>
+          </View>
+          <View style={{flexDirection: 'row',display: 'block'}}>
+            <Text>Sexo: </Text>
+            <Text>{injertos.sexo} </Text>
+          </View>
+          <View style={{flexDirection: 'row',display: 'block'}}>
+            <Text>Acierto: </Text>
+            <Text>{injertos.acierto}</Text>
+          </View>
+          <View style={{flexDirection: 'row',display: 'block'}}>
+            <Text>Probabilidad: </Text>
+            <Text>{injertos.probabilidad}</Text>
+          </View>
+          <View style={{flexDirection: 'row',display: 'block'}}>
+            <Text>Validez: </Text>
+            <Text>{injertos.validez}</Text>
+          </View>
+        </TouchableOpacity>
+      
+     <TouchableOpacity style={{paddingRight:20}} onPress={() => navigation.navigate('ViewInjertos', {id: injertos.id})}>
+     <FontAwesome5 name="eye" size={30} color="black" />
+     </TouchableOpacity>
+     <TouchableOpacity onPress={() => navigation.navigate('UpdateInjertos', {id: injertos.id})}>
+        <Feather name="edit" size={30} color="black" />
+     </TouchableOpacity>
+    
+      </View>
     </View>
   )
 }
@@ -16,7 +55,22 @@ const styles = StyleSheet.create({
         padding:20,
         marginVertical:8,
         borderRadius:5,
+        textAlign:"left",
+        borderWidth: 3,
+        borderColor:'#9af88c',
+        borderRadius:10,   
+    },
+    container:{
+      alignItems: 'left',
+      justifyContent: 'left',
+      textAlign:'left',
+      width:"100%",
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems:'center',
     }
 })
 
 export default InjertosItem
+
+
